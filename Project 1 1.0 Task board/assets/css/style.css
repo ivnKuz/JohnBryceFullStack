@@ -1,0 +1,205 @@
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: url('../images/tile.jpg');
+}
+
+/* -----form styling---- */
+#taskTitle {
+    text-align: center;
+    font-family: titleFont;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: titleFont;
+    src: url('../fonts/Mefikademo-owEAq.ttf');
+}
+
+.topContainer {
+    display: grid;
+    justify-content: center;
+}
+
+.topContainer--form {
+    position: relative;
+    background: url('../images/newTaskBackground.jpg');
+    width: 40vw;
+    height: 27vh;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.form__label {
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.form__input {
+    display: block;
+    text-align: center;
+    width: 70%;
+    justify-content: center;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 11px;
+    background: #eee;
+    border: .1px solid #000000;
+}
+
+#btnSubmit,
+#btnClear {
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    font-weight: 600;
+    bottom: 1%;
+    width: 50%;
+    height: 25px;
+    border-radius: 10px;
+    border: transparent;
+    background: rgb(112, 238, 15);
+    color: rgb(29, 33, 32);
+}
+
+#btnClear {
+    left: 50%;
+    background: rgb(234, 12, 12);
+    color: aquamarine;
+}
+
+#btnSubmit:hover,
+#btnClear:hover {
+    cursor: pointer;
+    height: 26px;
+    z-index: 3;
+}
+
+/* popup when fieldds are empty */
+.wrongPopup {
+    visibility: hidden;
+    position: absolute;
+    z-index: 7;
+    text-align: center;
+    color: red;
+    background: black;
+    width: 400px;
+    height: 100px;
+    border-radius: 6px;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.1);
+    transition: transform .4s, top .4s;
+}
+
+#popBtn {
+    cursor: pointer;
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    background: green;
+    color: #eee;
+}
+
+.showPopUp {
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* -----form styling END---- */
+
+/* em, container for tasks, yep */
+.tasksContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 98.5vw;
+    /* change to auto later */
+    height: 100vh;
+}
+
+
+
+
+/* ---------Every task card styling-------- */
+#noteImg {
+    position: absolute;
+    z-index: -1;
+    top: -7%;
+    width: 250px;
+    height: 250px;
+}
+
+.task__card {
+    position: relative;
+    width: 225px;
+    height: 240px;
+    margin: 20px 15px;
+    overflow: hidden;
+}
+
+.note {
+    position: absolute;
+    margin-top: 10%;
+    background: transparent;
+    height: 60%;
+    border: none;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.date {
+    position: absolute;
+    bottom: 10%;
+    left: 2%;
+}
+
+.hour {
+    position: absolute;
+    bottom: 0;
+    left: 2%;
+}
+
+.close {
+    display: none;
+    position: absolute;
+    /* display: none; */
+    right: 2%;
+    top: 1%;
+}
+
+/* adding dynamically close button when user hovers over it. */
+.visible {
+    display: inline;
+}
+
+/* added when new card is created, to add animation for new cards only. Deleted when page loaded agan. */
+.animatedCard {
+    animation: fadeIn 1s;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+/* -------card styling end--------- */
+
+/* simple fade in animation for a new card. */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

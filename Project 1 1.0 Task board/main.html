@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Board</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+</head>
+
+<body onload="onLoad()">
+
+    <div class="topContainer">
+        <h1 id="taskTitle">My Task Board</h1>
+        <form id="newTaskForm" class="topContainer--form">
+            <label class="form__label" for="taskDesc">What's on your mind:</label>
+            <input class="form__input" id="taskDesc" type="text" required>
+            <label class="form__label" for="untilDate">Until when it has to be done?</label>
+            <input class="form__input" id="untilDate" type="date" required>
+            <label class="form__label" for="untilHours">At what hour?</label>
+            <input class="form__input" id="untilHours" type="time" required>
+            <input type="submit" id="btnSubmit" onclick="createNewTask(event)">
+            <input onclick="clearFields()" type="button" id="btnClear" value="Clear">
+        </form>
+    </div>
+    <!-- hidden popUp for empty fields -->
+    <div class="wrongPopup">
+        <h2>Fields cannot be empty.</h2>
+        <button onclick="showOrClosePoP(false)" id="popBtn" type="button">Got it!</button>
+    </div>
+
+    <div class="tasksContainer"></div>
+</body>
+
+</html>
