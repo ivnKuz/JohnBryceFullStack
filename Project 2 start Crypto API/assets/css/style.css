@@ -1,3 +1,56 @@
 .card>img {
     width: 32px;
 }
+.content__container{
+    position: relative;
+    width: 70vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.top-title{
+    position: relative;
+    background: gray;
+    margin-bottom: 10px;
+    height: 14vh;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+.top-title__text{
+    position: absolute;
+    display: inline;
+    left: 1vw;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.top-title__image{
+    position: absolute;
+    top: 1vh;
+    right: 0;
+    width: 12vw;
+    height: 17vh;
+}
+.search-section {
+    position: absolute;
+    float: right;
+    right: 0;
+    justify-content: right;
+}
+.nav, nav-tabs {
+    position: relative;
+}
+.nav-item__search--btn{
+    border-radius: 10px;
+    background-color: aquamarine;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.nav-item__search--btn:hover{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px){
+    .search-section {
+        position: relative;
+        display: block;
+    }
+}

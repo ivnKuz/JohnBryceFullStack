@@ -5,6 +5,9 @@ export default function reduceCoins(coins) {
                 <div class="card-body">
                     <h5 class="card-title">${coin.name}</h5>
                     <p class="card-text">${coin.symbol}</p>
+                   <div class="form-check form-switch">
+                   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked-${coin.id}" >
+                   </div>
                     <a href="#" id="more-info-${coin.id}" class="btn btn-primary" data-bs-toggle="collapse"
                         data-bs-target="#collapse-${coin.id}">More Info</a>
                     <div class="collapse" id="collapse-${coin.id}">
