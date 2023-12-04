@@ -1,5 +1,7 @@
+import Home from "../../home/home/Home";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
+import Menu from "../menu/Menu";
 import "./Layout.css"
 
 
@@ -10,10 +12,10 @@ function Layout(): JSX.Element{
             <Header></Header>
             </header>
             <aside>
-                nav
+                <Menu></Menu>
             </aside>
             <main>
-            main
+            <Home></Home>
             </main>
             <footer>
              <Footer></Footer>
