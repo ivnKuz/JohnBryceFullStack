@@ -7,7 +7,9 @@ function Home(): JSX.Element {
         <div className="Home">
 			<p>Welcome to Northwind Traders!</p>
             <img src={ randomNumber === 1 ?  ProductsImageSource : ProductsImageSource2} alt="" />
-            {/* <img src={ProductsImageSource2} alt="" /> */}
+            {/* react standard is short sucruin */}
+            {/* {randomNumber === 1 && < img src={ProductsImageSource} />}
+            {randomNumber === 2 && < img src={ProductsImageSource2} />} */}
         </div>
     );
 }
