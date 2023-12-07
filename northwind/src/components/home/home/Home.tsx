@@ -1,7 +1,8 @@
 import "./Home.css";
 import ProductsImageSource from '../../../assets/images/Dry Foods comp.jpg'
 import ProductsImageSource2 from '../../../assets/images/ProductReinvention_Lead.jpg'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { time } from "console";
 function Home(): JSX.Element {
     const randomNumber = Math.floor(Math.random() * 2) + 1;
 
@@ -16,7 +17,7 @@ function Home(): JSX.Element {
         alert('%50 discount on Re-colad');
     }
     const arr = useState<string>('test');
-    console.log(arr)
+    // console.log(arr)
     let sale2Info = arr[0];
     const setSale2Info = arr[1];
     function displaySale2(){
@@ -28,6 +29,21 @@ function Home(): JSX.Element {
     function displaySale3(){
         setSale3Info('20% discount on all fish');
     }
+
+    const [time, dateChange] = useState<string>('');;
+    function showCurrentTime(){
+        const currentDate = new Date();
+        dateChange(currentDate.toLocaleTimeString())
+    }
+    useEffect(()=> {
+        setInterval(()=>{
+            showCurrentTime();
+        
+}, 1000);
+    })
+    
+    
+    
     
     return (
         <div className="Home">
@@ -48,6 +64,10 @@ function Home(): JSX.Element {
             <p>sale2: {sale3Info}</p>
             <hr />
             <button onClick={displaySale3}>Display Sale 2</button>
+            <hr />
+            <button onClick={showCurrentTime}>Show time</button>
+            <hr />
+            <span>current date is: {time}</span>
             
         </div>
     );
