@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { time } from "console";
 function Home(): JSX.Element {
     const randomNumber = Math.floor(Math.random() * 2) + 1;
-
     const desserts = [
         {id:1, name: 'Pana Cota', price: 10},
         {id:2, name: 'Re-colad', price:40},
