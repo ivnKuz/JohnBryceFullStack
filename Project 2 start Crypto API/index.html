@@ -13,11 +13,12 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="assets/js/main.js" type="module"></script>
+    <script src="assets/js/main.js" type="module" ></script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
+    
     <!-- title with image -->
     <div class="top-title">
         <h1 class="top-title__text">Cryptonyte</h1>
@@ -49,6 +50,7 @@
             tabindex="0">
 
             <div class="row" id="coins-container">
+                
             </div>
 
         </div>
@@ -65,6 +67,32 @@
             ...</div>
     </div>
 </div>
+<section>
+   <!-- Button trigger modal
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button id="closeModal--btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="modalSave--btn"  type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </body>
 
 </html>

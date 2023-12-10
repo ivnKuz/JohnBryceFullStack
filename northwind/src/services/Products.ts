@@ -5,7 +5,6 @@ import appConfig from "../utils/AppConfig";
 class Products {
 
     public async getAll(): Promise<Product[]>{
-        
         //get productws form remote server
         const response = await axios.get<Product[]>(appConfig.productsUrl);
 

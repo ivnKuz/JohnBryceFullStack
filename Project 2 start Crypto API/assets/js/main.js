@@ -46,48 +46,46 @@ function coinsContainerClicked(e) {
             `;
             }
         }
-        //check how many checked
         const allCheckboxes = document.querySelectorAll('.form-check-input');
-        checkCheckedCoins(allCheckboxes);
-    });
-}
-// function checkCheckedCoins(path:NodeListOf<Element>): void {
-//     let checkedArr:HTMLInputElement[] = [];
-//     for(let check of path){
-//         let convertCheck = check as HTMLInputElement;
-//         if(checkedArr.length > 4){
-//             for(let i = 0; i < path.length; i++){
-//                 let inputcheck = path[i] as HTMLInputElement;
-//                 !inputcheck.checked ? inputcheck.setAttribute('disabled','') : inputcheck.removeAttribute('disabled')
-//             }
-//         }else{
-//             convertCheck.removeAttribute('disabled')
-//         }
-//         // console.log(convertCheck.checked);
-//         if(convertCheck.checked && convertCheck){
-//             checkedArr.push(convertCheck);
-//         }
-//     }
-//     console.log(checkedArr);
-// }
-//make sure you cant select more than 5
-function checkCheckedCoins(path) {
-    let checkedArr = [];
-    for (let check of path) {
-        let convertCheck = check;
-        if (checkedArr.length > 4) {
-            for (let i = 0; i < path.length; i++) {
-                let inputcheck = path[i];
-                !inputcheck.checked ? inputcheck.setAttribute('disabled', '') : inputcheck.removeAttribute('disabled');
+        let checkedArr = [];
+        for (let check of allCheckboxes) {
+            let convertCheck = check;
+            if (checkedArr.length > 4) {
+                // show pop up when trying to select more than 5, adding toggle modal bs attribute to all other unselected checkboxes
+                if (!convertCheck.checked) {
+                    convertCheck.setAttribute('data-bs-toggle', 'modal');
+                    convertCheck.setAttribute('data-bs-target', '#exampleModal');
+                }
+            }
+            else {
+                convertCheck.removeAttribute('data-bs-toggle');
+                convertCheck.removeAttribute('data-bs-target');
+            }
+            if (convertCheck.checked) {
+                checkedArr.push(convertCheck);
             }
         }
-        else {
-            convertCheck.removeAttribute('disabled');
+        checkCheckedCoins(allCheckboxes, checkedArr);
+        //array to hold up to 5 picked elements
+        //button cancel 
+    });
+}
+//make sure you cant select more than 5
+function checkCheckedCoins(path, checkedArr) {
+    document.getElementById('closeModal--btn').addEventListener('click', () => {
+        // remove last element in array 
+        checkedArr.pop();
+        // uncheck all the checkboxes
+        for (let checkbox of path) {
+            const boxElem = checkbox;
+            boxElem.checked = false;
         }
-        if (convertCheck.checked) {
-            checkedArr.push(convertCheck);
+        //check only those saved in in array
+        for (let elem of checkedArr) {
+            elem.checked = true;
         }
-    }
+        console.log(checkedArr);
+    });
     console.log(checkedArr);
 }
 (() => __awaiter(void 0, void 0, void 0, function* () {

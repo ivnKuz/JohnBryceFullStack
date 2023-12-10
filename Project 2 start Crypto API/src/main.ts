@@ -4,6 +4,7 @@ import reduceCoins from './reducers/coins.js';
 import Cache from './Cache.js';
 const cache = Cache.getInstance();
 
+
 async function getCoins(): Promise<Coin[]> {
     // const response = await fetch('https://api.coingecko.com/api/v3/coins/list');
     // const response = await fetch('coins.json');
@@ -15,6 +16,7 @@ async function getCoins(): Promise<Coin[]> {
 
     return coins;
 }
+
 
 async function getCoinData(coinId: string): Promise<CoinData> {
     const cacheResponse = await cache.getData(`https://api.coingecko.com/api/v3/coins/${coinId}`);
@@ -38,68 +40,83 @@ async function coinsContainerClicked(e: MouseEvent) {
             `;
         }
     }
-    //check how many checked
     const allCheckboxes = document.querySelectorAll('.form-check-input') ;
-   checkCheckedCoins(allCheckboxes);
-   
-}
-// function checkCheckedCoins(path:NodeListOf<Element>): void {
-//     let checkedArr:HTMLInputElement[] = [];
-//     for(let check of path){
-//         let convertCheck = check as HTMLInputElement;
-//         if(checkedArr.length > 4){
-//             for(let i = 0; i < path.length; i++){
-//                 let inputcheck = path[i] as HTMLInputElement;
-//                 !inputcheck.checked ? inputcheck.setAttribute('disabled','') : inputcheck.removeAttribute('disabled')
-//             }
-//         }else{
-//             convertCheck.removeAttribute('disabled')
-//         }
-//         // console.log(convertCheck.checked);
-//         if(convertCheck.checked && convertCheck){
-//             checkedArr.push(convertCheck);
-//         }
-        
-//     }
-//     console.log(checkedArr);
-// }
-    //make sure you cant select more than 5
-function checkCheckedCoins(path:NodeListOf<Element>): void {
     let checkedArr:HTMLInputElement[] = [];
-    for(let check of path){
+
+
+
+    for(let check of allCheckboxes as NodeList){
         let convertCheck = check as HTMLInputElement;
         if(checkedArr.length > 4){
-            for(let i = 0; i < path.length; i++){
-                let inputcheck = path[i] as HTMLInputElement;
-                !inputcheck.checked ? inputcheck.setAttribute('disabled','') : inputcheck.removeAttribute('disabled')
-            }
+            // show pop up when trying to select more than 5, adding toggle modal bs attribute to all other unselected checkboxes
+               
+                if(!convertCheck.checked) {
+                   
+            convertCheck.setAttribute('data-bs-toggle','modal');
+            convertCheck.setAttribute('data-bs-target','#exampleModal');
+                }
+            
+            
         }else{
-            convertCheck.removeAttribute('disabled')
+            convertCheck.removeAttribute('data-bs-toggle');
+            convertCheck.removeAttribute('data-bs-target');
+
         }
         if(convertCheck.checked){
             checkedArr.push(convertCheck);
         }
+         
     }
-    console.log(checkedArr);
+
+    checkCheckedCoins(allCheckboxes, checkedArr);
+   
+    //array to hold up to 5 picked elements
+   //button cancel 
+   
 }
 
-(async () => {
-    // init
-
+    //make sure you cant select more than 5
+function checkCheckedCoins(path:NodeListOf<Element>, checkedArr: HTMLInputElement[]): void {
+   
+    document.getElementById('closeModal--btn').addEventListener('click',() =>{
+        // remove last element in array 
+        checkedArr.pop();
+       
+        // uncheck all the checkboxes
+        for(let checkbox of path){
+            const boxElem = checkbox as HTMLInputElement;
+            boxElem.checked = false;
+        }
+        //check only those saved in in array
+        for(let elem of checkedArr){
+            elem.checked = true;
+        }
+        console.log(checkedArr);
+        
+        
+});
+    console.log(checkedArr);
+   
+}
     
+
+
+
+(async () => {
+ 
+    // init
     document.getElementById('coins-container').addEventListener('click', coinsContainerClicked);
 
+    
     // get data
     const coins = await getCoins();
 
     // prepare data
-
     // cut list to 100 coins
     const shortList = coins.slice(0, 100);
-
     // reduce to create the HTML string of the cards
     const html = reduceCoins(shortList);
     document.getElementById('coins-container').innerHTML = html;
     // display
-  
+   
 })();
