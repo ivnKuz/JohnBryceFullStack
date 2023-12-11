@@ -28,9 +28,9 @@ function Products(): JSX.Element {
                     </tr>
                 </thead>
                 <tbody>
-		            	{products.map(product => <tr key={product.id}>
+		            	{products.map(product => <tr  key={product.id}>
                             <td>{product.name}</td>
-                            <td>{product.price}</td>
+                            <td>{product.price!.toFixed(2)}</td>
                             <td>{product.stock}</td>
                             <td><img src={product.imageUrl} alt="" /></td>
                             </tr>)}

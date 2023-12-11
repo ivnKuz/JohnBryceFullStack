@@ -4,6 +4,8 @@ function Menu(): JSX.Element {
     return (
         <div className="Menu">
             <NavLink to='/home'>Home</NavLink>
+
+            <NavLink to='/employees'>Employees</NavLink>
             <NavLink to='/products'>Products</NavLink>
             <NavLink to='/about'>About</NavLink>
         </div>
