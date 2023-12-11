@@ -34,6 +34,7 @@ function Home(): JSX.Element {
         const currentDate = new Date();
         dateChange(currentDate.toLocaleTimeString())
     }
+    
     useEffect(()=> {
         setInterval(()=>{
             showCurrentTime();

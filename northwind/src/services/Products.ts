@@ -1,5 +1,5 @@
 import axios from "axios";
-import Product from "../models/product";
+import Product from "../models/Product";
 import appConfig from "../utils/AppConfig";
 
 class Products {
@@ -15,5 +15,6 @@ class Products {
     }
 }
 
+//singleton
 const products = new Products();
 export default products;
