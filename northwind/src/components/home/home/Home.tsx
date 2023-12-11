@@ -3,7 +3,9 @@ import ProductsImageSource from '../../../assets/images/Dry Foods comp.jpg'
 import ProductsImageSource2 from '../../../assets/images/ProductReinvention_Lead.jpg'
 import { useEffect, useState } from "react";
 import { time } from "console";
+import useTitle from "../../../utils/useTitle";
 function Home(): JSX.Element {
+    useTitle('Northwind Home')
     const randomNumber = Math.floor(Math.random() * 2) + 1;
     const desserts = [
         {id:1, name: 'Pana Cota', price: 10},

@@ -2,10 +2,13 @@ import Product from "../../../models/Product";
 import productsService from "../../../services/Products";
 import { useEffect, useState } from "react";
 import "./Products.css";
+import useTitle from "../../../utils/useTitle";
 
 function Products(): JSX.Element {
-
+    useTitle('Northwind Products')
     const [products, setProducts] = useState<Product[]>([])
+
+    
     console.log(products);
     
     useEffect(()=>{

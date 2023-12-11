@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import "./Employees.css";
 import Employee from "../../../models/Employee";
 import EmployeeService from '../../../services/Employees'
+import useTitle from "../../../utils/useTitle";
 function Employees(): JSX.Element {
+    useTitle('Northwind Employees')
     const [employees, setEmployees] = useState<Employee[]>([]);
     useEffect(()=> 
     {
