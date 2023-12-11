@@ -2,6 +2,7 @@ import CoinData from './interfaces/coin-data.js';
 import Coin from './interfaces/coin.js';
 import reduceCoins from './reducers/coins.js';
 import Cache from './Cache.js';
+import reduceCoinsPop from './reducers/coinsPop.js';
 const cache = Cache.getInstance();
 
 
@@ -9,8 +10,8 @@ async function getCoins(): Promise<Coin[]> {
     // const response = await fetch('https://api.coingecko.com/api/v3/coins/list');
     // const response = await fetch('coins.json');
     // const coins: Coin[] = await response.json();
-    // const cacheResponse = await cache.getData('https://api.coingecko.com/api/v3/coins/list');
-    const cacheResponse = await cache.getData('coins.json');
+    const cacheResponse = await cache.getData('https://api.coingecko.com/api/v3/coins/list');
+    // const cacheResponse = await cache.getData('coins.json');
     const coins: Coin[] = (cacheResponse) as Coin[]
     console.log(coins)
 
@@ -40,74 +41,107 @@ async function coinsContainerClicked(e: MouseEvent) {
             `;
         }
     }
-    const allCheckboxes = document.querySelectorAll('.form-check-input') ;
-    let checkedArr:HTMLInputElement[] = [];
+    const allCheckboxes = document.querySelectorAll('.form-check-input');
 
 
 
-    for(let check of allCheckboxes as NodeList){
+
+
+    checkCheckedCoins(allCheckboxes);
+
+    //array to hold up to 5 picked elements
+    //button cancel 
+
+}
+
+//make sure you cant select more than 5
+async function checkCheckedCoins(path: NodeListOf<Element>) {
+
+    const checkedArr: HTMLInputElement[] = [];
+    const popUpList = [];
+    for (let check of path as NodeList) {
         let convertCheck = check as HTMLInputElement;
-        if(checkedArr.length > 4){
+
+        if (checkedArr.length > 4) {
+            convertCheck.checked = false;
             // show pop up when trying to select more than 5, adding toggle modal bs attribute to all other unselected checkboxes
-               
-                if(!convertCheck.checked) {
-                   
-            convertCheck.setAttribute('data-bs-toggle','modal');
-            convertCheck.setAttribute('data-bs-target','#exampleModal');
+            for (let check2 of path as NodeList) {
+                let convertCheck2 = check2 as HTMLInputElement;
+                if (!convertCheck2.checked) {
+
+                    convertCheck2.setAttribute('data-bs-toggle', 'modal');
+                    convertCheck2.setAttribute('data-bs-target', '#exampleModal');
                 }
-            
-            
-        }else{
+            }
+
+        } else {
             convertCheck.removeAttribute('data-bs-toggle');
             convertCheck.removeAttribute('data-bs-target');
-
         }
-        if(convertCheck.checked){
+        if (convertCheck.checked) {
             checkedArr.push(convertCheck);
         }
-         
+
+
     }
-
-    checkCheckedCoins(allCheckboxes, checkedArr);
-   
-    //array to hold up to 5 picked elements
-   //button cancel 
-   
-}
-
-    //make sure you cant select more than 5
-function checkCheckedCoins(path:NodeListOf<Element>, checkedArr: HTMLInputElement[]): void {
-   
-    document.getElementById('closeModal--btn').addEventListener('click',() =>{
+    //showing what was selected in a popup modal
+    for (let element of checkedArr) {
+        const coinId = element.id.substring('flexSwitchCheckChecked-'.length);
+        const coinData = await getCoinData(coinId);
+        popUpList.push(coinData);
+        console.log(popUpList);
+    }
+    const html = reduceCoinsPop(popUpList);
+    document.getElementById('modal-body').innerHTML = html;
+    document.getElementById('closeModal--btn').addEventListener('click', async () => {
         // remove last element in array 
-        checkedArr.pop();
-       
+
+
+
+        for (let check of path as NodeList) {
+            let convertCheck = check as HTMLInputElement;
+
+            if (!convertCheck.checked) {
+
+                convertCheck.setAttribute('data-bs-toggle', 'modal');
+                convertCheck.setAttribute('data-bs-target', '#exampleModal');
+            }
+        }
         // uncheck all the checkboxes
-        for(let checkbox of path){
-            const boxElem = checkbox as HTMLInputElement;
-            boxElem.checked = false;
-        }
+        // for (let checkbox of path) {
+        //     const boxElem = checkbox as HTMLInputElement;
+        //     for (let i = 0; i < checkedArr.length; i++) {
+        //         if (boxElem == checkedArr[i]) {
+        //             boxElem.checked = true;
+        //             break;
+        //         } else {
+        //             boxElem.checked = false;
+        //         }
+        //     }
+
+        // }
+
         //check only those saved in in array
-        for(let elem of checkedArr){
-            elem.checked = true;
-        }
+        // for (let elem of checkedArr) {
+        //     elem.checked = true;
+        // }
         console.log(checkedArr);
-        
-        
-});
+
+
+    });
     console.log(checkedArr);
-   
+
 }
-    
+
 
 
 
 (async () => {
- 
+
     // init
     document.getElementById('coins-container').addEventListener('click', coinsContainerClicked);
 
-    
+
     // get data
     const coins = await getCoins();
 
@@ -118,5 +152,5 @@ function checkCheckedCoins(path:NodeListOf<Element>, checkedArr: HTMLInputElemen
     const html = reduceCoins(shortList);
     document.getElementById('coins-container').innerHTML = html;
     // display
-   
+
 })();
