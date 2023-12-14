@@ -50,37 +50,46 @@ function coinsContainerClicked(e) {
         }
         const allCheckboxes = document.querySelectorAll('.form-check-input');
         if (e.target instanceof HTMLInputElement) {
-            if (checkedArr.length > 5)
-                return;
             const element = e.target;
             if (element.id.startsWith('flexSwitchCheckChecked-')) {
+                for (let elem of allCheckboxes) {
+                    if (elem.checked) {
+                        elem.removeAttribute('data-bs-toggle');
+                        elem.removeAttribute('data-bs-target');
+                    }
+                }
                 const coinId = element.id.substring('flexSwitchCheckChecked-'.length);
                 console.log(checkedArr);
-                checkedArr.push(coinId);
-                if (checkedArr.length > 5) {
+                if (checkedArr.length > 4) {
                     // show pop up when trying to select more than 5, adding toggle modal bs attribute to all other unselected checkboxes
-                    for (let check of allCheckboxes) {
-                        let convertCheck = check;
-                        for (let i = 0; i < checkedArr.length; i++) {
-                            let checkedSwitch = document.querySelector(`#flexSwitchCheckChecked-${checkedArr[i]}`);
-                            checkedSwitch.checked = true;
-                        }
-                        if (!convertCheck.checked) {
-                            convertCheck.setAttribute('data-bs-toggle', 'modal');
-                            convertCheck.setAttribute('data-bs-target', '#exampleModal');
-                            convertCheck.checked = false;
+                    element.setAttribute('data-bs-toggle', 'modal');
+                    element.setAttribute('data-bs-target', '#exampleModal');
+                    for (let elem of allCheckboxes) {
+                        if (!elem.checked) {
+                            elem.setAttribute('data-bs-toggle', 'modal');
+                            elem.setAttribute('data-bs-target', '#exampleModal');
                         }
                     }
-                    return;
+                    element.checked = false;
+                    // for(let i = 0; i < checkedArr.length; i++){
+                    //     let checkedSwitch =  document.querySelector(`#flexSwitchCheckChecked-${checkedArr[i]}`) as HTMLInputElement;
+                    //     checkedSwitch.checked = true
+                    //  }
                 }
-                else {
-                    element.removeAttribute('data-bs-toggle');
-                    element.removeAttribute('data-bs-target');
+                if (element.checked && checkedArr.length <= 4) {
+                    checkedArr.push(coinId);
+                }
+                if (!element.checked && checkedArr[checkedArr.indexOf(coinId)] === coinId) {
+                    //delete unchecked from arr by value
+                    let index = checkedArr.indexOf(coinId);
+                    if (index !== -1) {
+                        checkedArr.splice(index, 1);
+                    }
                 }
             }
         }
-        // const allCheckboxes = document.querySelectorAll('.form-check-input');
         checkCheckedCoins(allCheckboxes);
+        console.log(checkedArr);
         //array to hold up to 5 picked elements
         //button cancel 
     });
@@ -95,7 +104,7 @@ function checkCheckedCoins(path) {
         for (let coinId of checkedArr) {
             const coinData = yield getCoinData(coinId);
             popUpList.push(coinData);
-            console.log(popUpList);
+            // console.log(popUpList);
         }
         // }
         console.log(popUpList);
@@ -136,10 +145,22 @@ function checkCheckedCoins(path) {
     // prepare data
     // cut list to 100 coins
     const shortList = coins.slice(0, 100);
+    console.log(shortList);
     // reduce to create the HTML string of the cards
     const html = reduceCoins(shortList);
     document.getElementById('coins-container').innerHTML = html;
     // display
+    // search input 
+    document.getElementById('searchField').addEventListener('input', (e) => {
+        //finding all card divs
+        const allCheckboxes = document.querySelectorAll('.cardDIv');
+        const value = e.target.value.toLowerCase();
+        for (let cardElem of allCheckboxes) {
+            const title = cardElem.querySelector('.card-title').textContent;
+            const isVisible = title.toLowerCase().includes(value) || title.toLowerCase().includes(value);
+            cardElem.classList.toggle('hide', !isVisible);
+        }
+    });
 }))();
 //     for (let check of path as NodeList) {
 //         let convertCheck = check as HTMLInputElement;

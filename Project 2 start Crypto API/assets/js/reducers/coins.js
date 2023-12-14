@@ -1,6 +1,6 @@
 export default function reduceCoins(coins) {
     return coins.map(coin => `
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-3 cardDIv">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">${coin.name}</h5>

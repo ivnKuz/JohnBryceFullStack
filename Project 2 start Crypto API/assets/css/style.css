@@ -47,8 +47,18 @@
 .nav-item__search--btn:hover{
     cursor: pointer;
 }
+/* hide cards for search */
+.hide{
+    display: none;
+}
+/* modal */
+#modal-body{
+    display: grid;
+    grid-template-rows: auto;
+}
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 900px){
+    /* so search wont overlay the links */
     .search-section {
         position: relative;
         display: block;
