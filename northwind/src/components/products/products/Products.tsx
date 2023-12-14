@@ -3,6 +3,8 @@ import productsService from "../../../services/Products";
 import { useEffect, useState } from "react";
 import "./Products.css";
 import useTitle from "../../../utils/useTitle";
+import ProductCard from "../productCard/ProductCard";
+import { NavLink } from "react-router-dom";
 
 function Products(): JSX.Element {
     useTitle('Northwind Products')
@@ -21,24 +23,10 @@ function Products(): JSX.Element {
     console.log(products);
     return (
         <div className="Products">
-            <table>
-                <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>price</th>
-                        <th>stock</th>
-                        <th>image</th>
-                    </tr>
-                </thead>
-                <tbody>
-		            	{products.map(product => <tr  key={product.id}>
-                            <td>{product.name}</td>
-                            <td>{product.price!.toFixed(2)}</td>
-                            <td>{product.stock}</td>
-                            <td><img src={product.imageUrl} alt="" /></td>
-                            </tr>)}
-                </tbody>
-            </table>
+                        <br />
+                    <NavLink to="/products/new">New Product</NavLink>
+                        <br />
+                    {products.map(p => <ProductCard key={p.id} product={p}/>)}
         </div>
     );
 }

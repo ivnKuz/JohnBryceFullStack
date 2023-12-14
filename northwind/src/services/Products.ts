@@ -13,6 +13,15 @@ class Products {
 
         return products;
     }
+    public async getOne(id: number): Promise<Product>{
+        //get one product
+        const response = await axios.get<Product>(appConfig.productsUrl+`${id}`);
+
+        //extract the data from response
+        const product = response.data;
+
+        return product;
+    }
 }
 
 //singleton

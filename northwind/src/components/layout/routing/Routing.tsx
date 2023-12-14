@@ -1,10 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import "./Routing.css";
 import Home from "../../home/home/Home";
 import Products from "../../products/products/Products";
 import About from "../../about/about/About";
 import Page404 from "../page404/Page404";
 import Employees from "../../employees/Employees/Employees";
+import ProductDetails from "../../products/productDetails/ProductDetails";
+import AddProduct from "../../products/addProduct/AddProduct";
 
 function Routing(): JSX.Element {
     return (
@@ -16,6 +17,8 @@ function Routing(): JSX.Element {
             <Route path="/employees" element={<Employees />} />
             <Route path="/products" element={<Products />} />
             <Route path="/about" element={<About />} />
+            <Route path="/product/details/:productId" element={<ProductDetails />} />
+            <Route path="/products/new" element={<AddProduct />}/>
             <Route path="/*" element={<Page404 />} />
             </Routes>
         </div>

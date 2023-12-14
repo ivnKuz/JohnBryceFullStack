@@ -7,3 +7,4 @@ class AppConfig{
 // React version of singleton
 const appConfig = new AppConfig();
 export default appConfig;
+
