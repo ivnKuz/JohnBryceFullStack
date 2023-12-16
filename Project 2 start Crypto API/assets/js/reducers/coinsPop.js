@@ -6,7 +6,7 @@ export default function reduceCoinsPop(coins) {
                     <h5 class="card-title">${coin.name}</h5>
                     <p class="card-text">${coin.symbol}</p>
                    <div class="form-check form-switch">
-                   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked-${coin.id}" checked='true' >
+                   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheck-${coin.id}" checked='true' >
                    </div>
                     
                 </div>

@@ -2,6 +2,7 @@
     "compilerOptions": {
         "target": "ES6",
         "outDir": "assets/js",
-        "noEmitOnError": true
+        "noEmitOnError": true,
+        "allowJs": true
     }
 }

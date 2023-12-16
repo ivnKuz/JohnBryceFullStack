@@ -1,3 +1,9 @@
+body{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to bottom, #38ef7d, #11998e);
+}
 .card>img {
     width: 32px;
 }
@@ -23,6 +29,26 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.neon{
+    font-family: 'Monoton', cursive;
+    font-size:24px;
+    color: #d5ffd6;
+    position: absolute;
+    font-weight: 400;
+    letter-spacing: 8px;
+    text-shadow: 1px 0px 4px #2ee02b, 2px 0px 4px #64cf47, 3px 0px 4px #2f8230, 2px 0px 3px #75e77d, 2px 3px 15px #16b61e, 2px 0px 15px, 5px 0px 125px, 20px 0vw 200px #37d42c,40px 0vw 200px #37d42c;
+  }
+  
+  .flicker-slow{
+    animation: flicker 3s linear infinite;
+  }
+  
+  .flicker-fast{
+    animation: flicker 1s linear infinite;
+  }
+  
+
+  
 .top-title__image{
     position: absolute;
     top: 1vh;
@@ -56,7 +82,33 @@
     display: grid;
     grid-template-rows: auto;
 }
+.spinner{
+    position: absolute;
+    left: 50%;
+    top: 30vh;
+    height:  120px;
+    width: 120px;
+    border: 6px solid;
+    border-radius: 50%;
+    border-color: rgb(28, 159, 39) transparent rgb(21, 100, 83) transparent;
+    animation: spin 1.5s linear infinite;
+}
 
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+      text-shadow: none;
+    opacity: .99;
+        
+    }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+        opacity: 0.4;
+    }
+}
 @media only screen and (max-width: 900px){
     /* so search wont overlay the links */
     .search-section {

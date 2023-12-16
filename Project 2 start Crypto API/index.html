@@ -14,6 +14,7 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="assets/js/main.js" type="module" defer></script>
+    <script src="src/reducers/coinsPop.ts" type="module" defer></script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -21,7 +22,7 @@
 
     <!-- title with image -->
     <div class="top-title">
-        <h1 class="top-title__text">Cryptonyte</h1>
+        <h1 class="neon top-title__text" data-text="U">CRY<span class="flicker-slow">P</span>TO<span class="flicker-fast">N</span>Y<span class="flicker-slow">T</span>E</h1>
         <img class="top-title__image" src="assets/images/KryptoniteLogo.jpeg" alt="">
     </div>
     <div class="content__container">
@@ -42,7 +43,7 @@
             <!-- search -->
             <div class="search-section">
                 <input id="searchField" placeholder="search..." type="search">
-                <button class="nav-item__search--btn">Search</button>
+                <button id="btnSearch" class="nav-item__search--btn">Search</button>
             </div>
         </ul>
         <!-- Home -->
@@ -51,7 +52,7 @@
                 tabindex="0">
 
                 <div class="row" id="coins-container">
-
+                    <div class="spinner"></div>
                 </div>
 
             </div>
