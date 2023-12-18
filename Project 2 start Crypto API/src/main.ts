@@ -31,6 +31,7 @@ async function getCoinData(coinId: string): Promise<CoinData> {
 }
 
 async function coinsContainerClicked(e: MouseEvent) {
+    //rendering coin data for button more-info
     if (e.target instanceof HTMLElement) {
         const element = e.target as HTMLElement;
         if (element.id.startsWith('more-info-')) {
@@ -96,29 +97,34 @@ async function checkCheckedCoins(path: NodeListOf<Element>) {
             popUpList.push(coinData);
         }
         
-    console.log(popUpList);// DELETE LOG
-    const html = reduceCoinsPop(popUpList);
-    document.getElementById('modal-body').innerHTML = html;
-    //adding onclick on every checkbox
+    renderModal(popUpList)
+    
+    //adding onclick on every checkbox by id saved in array of ids. 
+    //By unchecking the checkbox deleting id and a coinData from both arrays, then re-rendering the modal.
    checkedArr.forEach(coinId => {
         document.querySelector(`#flexSwitchCheck-${coinId}`).addEventListener('click', (e)=>{
             let index = checkedArr.indexOf(coinId);
                  if (index !== -1) {
                     checkedArr.splice(index, 1);
+                    popUpList.splice(index, 1);
                 }
             (document.querySelector(`#flexSwitchCheckChecked-${coinId}`) as HTMLInputElement).checked = false;
             myModal.hide()
+            renderModal(popUpList);
         })
     })
     //btn close modal
     document.getElementById('closeModal--btn').addEventListener('click', async () => {
       //for the future idk what to do here, maybe delete after
     });
-    console.log(checkedArr);
+    console.log(popUpList);
 
 }
 
-
+function renderModal(popUpList){
+    const html = reduceCoinsPop(popUpList);
+    document.getElementById('modal-body').innerHTML = html;
+}
 
 
 (async () => {
