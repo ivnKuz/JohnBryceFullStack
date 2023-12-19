@@ -22,6 +22,33 @@ class Products {
 
         return product;
     }
+
+    public async addProduct(product: Product): Promise<Product>{
+        //need to do it to send image
+        const options = {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const response = await axios.post<Product>(appConfig.productsUrl, product, options);
+        const addedProduct = response.data;
+        return addedProduct;
+    }
+    public async deleteProduct(id: number): Promise<void>{
+        await axios.delete(appConfig.productsUrl + `${id}`);
+    }
+
+    public async editProduct(product: Product): Promise<Product>{
+        //need to do it to send image
+        const options = {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const response = await axios.put<Product>(appConfig.productsUrl + `${product.id}`, product, options);
+        const updatedProduct = response.data;
+        return updatedProduct;
+    }
 }
 
 //singleton

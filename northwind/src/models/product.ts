@@ -4,7 +4,7 @@ class Product {
     public price?: number;
     public stock?: number;
     public imageUrl?: string;
-
+    public image?:File;
 }
 
 

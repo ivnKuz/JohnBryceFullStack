@@ -1,14 +1,25 @@
 import { useForm } from "react-hook-form";
 import "./AddProduct.css";
 import Product from "../../../models/Product";
+import productService from "../../../services/Products";
+import { useNavigate } from "react-router-dom";
 
 function AddProduct(): JSX.Element {
     //handle submit kniows how to send parameter to submitProductData() because we assigned Product to use form
     const {register, handleSubmit} = useForm<Product>();
-
-    function submitProductData(product: Product){
+    const navigate = useNavigate();
+    async function submitProductData(product: Product){
         console.log(product);
-        
+        try{
+            //to turn File to FileList we gotta first make it unknown then FileList. lmao typescript am I right
+            product.image = (product.image as unknown as FileList)[0];
+            const newProduct = await productService.addProduct(product);
+            alert(`new product ${newProduct.name} was successfuly added.`);
+            navigate('/products')
+            
+        }catch(err){
+            alert(err)
+        }
     }
     return (
         <div className="AddProduct">
@@ -24,7 +35,7 @@ function AddProduct(): JSX.Element {
                 <input type="number" {...register("stock")}/>
 
                 <label>Image:</label>
-                <input type="file" accept="image/*" />
+                <input type="file" accept="image/*" {...register("image")}/>
 
                 <button>add</button>
             </form>

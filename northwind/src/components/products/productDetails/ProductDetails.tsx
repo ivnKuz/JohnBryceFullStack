@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import productsService from "../../../services/Products";
 import { NavLink } from "react-router-dom";
@@ -7,8 +7,9 @@ import Product from "../../../models/Product";
 function ProductDetails(): JSX.Element {
     const params = useParams();
     const productId = Number(params.productId);
-
+    const navigate = useNavigate();
     const [product, setProduct] = useState<Product>();
+
     useEffect(()=>{
 
         productsService.getOne(productId)
@@ -18,6 +19,17 @@ function ProductDetails(): JSX.Element {
     console.log(product);
     console.log(productId);
     
+    async function deleteThis(): Promise<void> {
+        if(window.confirm('Are you sure you want to delete this product?')){
+            try{
+            await productsService.deleteProduct(productId);
+            alert('Product was successfuly deleted');
+            navigate('/products');
+            }catch(err){
+            alert(err);
+            }
+        }
+    }
     
     return (
         <div className="ProductDetails">
@@ -30,9 +42,9 @@ function ProductDetails(): JSX.Element {
             <br />
             <NavLink to='/products'>Back</NavLink>
             <span> | </span>
-            <NavLink to='#'>update</NavLink>
+            <NavLink to={`/products/edit/${productId}`}>update</NavLink>
             <span> | </span>
-            <NavLink to='#'>Delete</NavLink>
+            <NavLink to='#' onClick={deleteThis}>Delete</NavLink>
         </div>
     );
 }
