@@ -4,6 +4,7 @@ import productsService from "../../../services/Products";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Product from "../../../models/Product";
+import notify from "../../../services/Notify";
 function ProductDetails(): JSX.Element {
     const params = useParams();
     const productId = Number(params.productId);
@@ -23,10 +24,10 @@ function ProductDetails(): JSX.Element {
         if(window.confirm('Are you sure you want to delete this product?')){
             try{
             await productsService.deleteProduct(productId);
-            alert('Product was successfuly deleted');
+            notify.success('Product was successfuly deleted');
             navigate('/products');
             }catch(err){
-            alert(err);
+            notify.error(err);
             }
         }
     }

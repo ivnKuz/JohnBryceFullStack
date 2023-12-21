@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import productService from "../../../services/Products";
 import Product from "../../../models/Product";
 import { useForm } from "react-hook-form";
+import notify from "../../../services/Notify";
 
 function EditProduct(): JSX.Element {
     const params = useParams();
@@ -11,7 +12,6 @@ function EditProduct(): JSX.Element {
     const {register, handleSubmit, setValue} = useForm<Product>();
     const navigate = useNavigate()
     useEffect(()=>{
-
         productService.getOne(productId)
         .then(productFromServer => {
             setValue('name', productFromServer.name);
@@ -27,7 +27,7 @@ function EditProduct(): JSX.Element {
             product.image = (product.image as unknown as FileList)[0];
             product.id = productId;
             const updatedProduct = await productService.editProduct(product);
-            alert(`Updated product ${updatedProduct.name} successfuly.`);
+            notify.success(`Updated product ${updatedProduct.name} successfuly.`);
             navigate(`/product/details/${updatedProduct.id}`)
             
         }catch(err){

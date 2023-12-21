@@ -3,6 +3,7 @@ import "./AddProduct.css";
 import Product from "../../../models/Product";
 import productService from "../../../services/Products";
 import { useNavigate } from "react-router-dom";
+import notify from "../../../services/Notify";
 
 function AddProduct(): JSX.Element {
     //handle submit kniows how to send parameter to submitProductData() because we assigned Product to use form
@@ -14,11 +15,11 @@ function AddProduct(): JSX.Element {
             //to turn File to FileList we gotta first make it unknown then FileList. lmao typescript am I right
             product.image = (product.image as unknown as FileList)[0];
             const newProduct = await productService.addProduct(product);
-            alert(`new product ${newProduct.name} was successfuly added.`);
+            notify.success(`new product ${newProduct.name} was successfuly added.`);
             navigate('/products')
             
         }catch(err){
-            alert(err)
+            notify.error(err)
         }
     }
     return (
