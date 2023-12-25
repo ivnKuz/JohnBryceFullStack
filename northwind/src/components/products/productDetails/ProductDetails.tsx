@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Product from "../../../models/Product";
 import notify from "../../../services/Notify";
+import Spinner from "../../common/spinner/Spinner";
 function ProductDetails(): JSX.Element {
     const params = useParams();
     const productId = Number(params.productId);
@@ -31,7 +32,9 @@ function ProductDetails(): JSX.Element {
             }
         }
     }
-    
+    if(!product){ return(
+        <Spinner/>
+    )}
     return (
         <div className="ProductDetails">
 			<h2> product details</h2>

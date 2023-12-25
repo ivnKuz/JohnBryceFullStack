@@ -14,9 +14,9 @@ function EditProduct(): JSX.Element {
     useEffect(()=>{
         productService.getOne(productId)
         .then(productFromServer => {
-            setValue('name', productFromServer.name);
-            setValue('price', productFromServer.price);
-            setValue('stock', productFromServer.stock);
+            setValue('name', productFromServer?.name);
+            setValue('price', productFromServer?.price);
+            setValue('stock', productFromServer?.stock);
         })
         .catch(err => console.log(err.message))
     },[])
@@ -28,10 +28,11 @@ function EditProduct(): JSX.Element {
             product.id = productId;
             const updatedProduct = await productService.editProduct(product);
             notify.success(`Updated product ${updatedProduct.name} successfuly.`);
-            navigate(`/product/details/${updatedProduct.id}`)
+            // navigate(`/product/details/${updatedProduct.id}`)
+            navigate(`/products`)
             
         }catch(err){
-            alert(err)
+            notify.error(err)
         }
     }
     return (

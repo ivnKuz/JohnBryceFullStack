@@ -5,6 +5,7 @@ import "./Products.css";
 import useTitle from "../../../utils/useTitle";
 import ProductCard from "../productCard/ProductCard";
 import { NavLink } from "react-router-dom";
+import Spinner from "../../common/spinner/Spinner";
 
 function Products(): JSX.Element {
     useTitle('Northwind Products')
@@ -26,6 +27,7 @@ function Products(): JSX.Element {
                         <br />
                     <NavLink to="/products/new">New Product</NavLink>
                         <br />
+                        {products.length === 0 && <Spinner/>}
                     {products.map(p => <ProductCard key={p.id} product={p}/>)}
         </div>
     );
