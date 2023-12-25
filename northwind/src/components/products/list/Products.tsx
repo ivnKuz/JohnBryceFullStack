@@ -6,11 +6,9 @@ import useTitle from "../../../utils/useTitle";
 import ProductCard from "../productCard/ProductCard";
 import { NavLink } from "react-router-dom";
 import Spinner from "../../common/spinner/Spinner";
-import Stats from "../stats/Stats";
-import AddProduct from "../addProduct/AddProduct";
-import ProductsList from "../list/Products";
+import { productsStore } from "../../../redux/ProductsState";
 
-function Products(): JSX.Element {
+function ProductsList(): JSX.Element {
     useTitle('Northwind Products')
     const [products, setProducts] = useState<Product[]>([])
 
@@ -23,24 +21,17 @@ function Products(): JSX.Element {
         // setProducts(productsFromServer);
 
         productsService.getAll().then(productsFromServer => setProducts(productsFromServer)).catch()
+        productsStore.subscribe(()=>{
+            setProducts([...productsStore.getState().products])
+        })
     },[]);
     console.log(products);
     return (
-        <div className="Products">
-            <div>
-            <br />
-                            <br />
-                            <Stats />
-                            <br />
-                            <ProductsList/>
-                     
-            </div>
-            <aside>
-                <AddProduct />
-            </aside>
-                        
+        <div className="ProductsList">
+               {products.length === 0 && <Spinner/>}
+                    {products.map(p => <ProductCard key={p.id} product={p}/>)}
         </div>
     );
 }
 
-export default Products;
+export default ProductsList;
