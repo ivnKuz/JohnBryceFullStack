@@ -9,18 +9,21 @@ function Stats(): JSX.Element {
     const [totalStock, setTotalStock] = useState<number>()
 
     useEffect(()=>{
-        // productsService.getAll()
-        // .then(products => {
-        //     setTotalProducts(products.length)
-        //     setTotalPrice(products.reduce((acc,curr) => acc + (curr.price || 0), 0))
-        //     setTotalStock(products.reduce((acc,curr) => acc + (curr.stock || 0), 0))
-        // })
-        // .catch(err => notify.error(err));
-        productsStore.subscribe(()=>{
+        productsService.getAll()
+        .then(products => {
+            setTotalProducts(products.length)
+            setTotalPrice(products.reduce((acc,curr) => acc + (curr.price || 0), 0))
+            setTotalStock(products.reduce((acc,curr) => acc + (curr.stock || 0), 0))
+        })
+        .catch(err => notify.error(err));
+      const unsubscribeStats = productsStore.subscribe(()=>{
             setTotalProducts(productsStore.getState().products.length)
             setTotalPrice(productsStore.getState().products.reduce((acc,curr) => acc + (curr.price || 0), 0))
             setTotalStock(productsStore.getState().products.reduce((acc,curr) => acc + (curr.stock || 0), 0))
-        })
+        });
+        //Sort of OnDestroy in angular cuz UseEffect startts when component is loaded so return will be when its closed
+        return unsubscribeStats;
+        
     }, [])
 
 

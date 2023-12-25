@@ -21,9 +21,10 @@ function ProductsList(): JSX.Element {
         // setProducts(productsFromServer);
 
         productsService.getAll().then(productsFromServer => setProducts(productsFromServer)).catch()
-        productsStore.subscribe(()=>{
+        const unsubscribeProducts = productsStore.subscribe(()=>{
             setProducts([...productsStore.getState().products])
         })
+        return unsubscribeProducts;
     },[]);
     console.log(products);
     return (
