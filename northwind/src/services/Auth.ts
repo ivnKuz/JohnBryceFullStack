@@ -38,6 +38,14 @@ class Auth {
      
          return token;
      }
+     public logout(){
+        const action: AuthAction = {
+            type: AuthActionType.Logout,
+            payload: null
+        }
+        authStore.dispatch(action)
+    }
 }
+
 const auth = new Auth();
 export default auth;

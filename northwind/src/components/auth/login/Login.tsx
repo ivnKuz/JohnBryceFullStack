@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import auth from "../../../services/Auth";
 import notify from "../../../services/Notify";
 import login from "../../../models/LoginModel";
+import { useEffect } from "react";
+import { authStore } from "../../../redux/authState";
 
 function Login(): JSX.Element {
     const {register, handleSubmit} = useForm<SignUp>();
@@ -19,6 +21,13 @@ function Login(): JSX.Element {
             notify.error(err);
         }
     }
+    useEffect(()=>{
+        const token = authStore.getState().token;
+        if(token){
+            notify.error('You are already logged in')
+            navigate('/home')
+        }
+    },[])
     return (
         <div className="Login">
 

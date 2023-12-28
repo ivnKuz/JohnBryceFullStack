@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import "./AuthMenu.css";
-import { authStore } from "../../../redux/authState";
-import { NavLink } from "react-router-dom";
+import { authState, authStore } from "../../../redux/authState";
+import { NavLink, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import auth from "../../../services/Auth";
+import notify from "../../../services/Notify";
 
 function AuthMenu(): JSX.Element {
-    type User = {firstName:string, lastName:string}
+    type User = {firstName:string, lastName:string};
+    const navigate = useNavigate();
     const [user, setUSer] = useState<User>();
 
     useEffect(()=>{
@@ -23,11 +26,17 @@ function AuthMenu(): JSX.Element {
            const user = jwtDecode<{user: User}>(token).user;
            console.log(user);
            
-           setUSer(user)
+            setUSer(user)
+        }else{
+            setUSer(undefined)
         }
      });
      return unsubscribe
     },[]);
+    function logout(){
+        notify.success(`Logged out successfully`)
+        auth.logout();
+    }
     return (
         
         <div className="AuthMenu">
@@ -42,7 +51,7 @@ function AuthMenu(): JSX.Element {
             {user &&  
             <div>
                 <span>Hello {user.firstName} | </span>
-                <NavLink to="/home">Logout</NavLink>
+                <NavLink to="/home" onClick={logout}>Logout</NavLink>
             </div>
             }
         </div>

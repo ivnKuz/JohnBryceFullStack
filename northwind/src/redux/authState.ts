@@ -14,9 +14,10 @@ export enum AuthActionType{
     Logout = 'Logout'
 }
 //3. action interface
+export type AuthActionPayload = string | null
 export interface AuthAction{
     type:AuthActionType,
-    payload: string
+    payload: AuthActionPayload
 }
 //4. reducer
 export function authReducer(currentState = new authState(), action: AuthAction): authState{
@@ -26,11 +27,13 @@ export function authReducer(currentState = new authState(), action: AuthAction):
         //sign up and login had same code, so cuz theres no break it will execute login code.
         case AuthActionType.Signup:
         case AuthActionType.Login:
-            newState.token = action.payload;
+            newState.token = action.payload as string;
             localStorage.setItem('token', newState.token);
             console.log("our jwt is "+action.payload);
             break;
         case AuthActionType.Logout:
+            newState.token = '';
+            localStorage.removeItem('token')
             break;
                  
     }
