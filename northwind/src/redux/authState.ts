@@ -3,7 +3,9 @@ import { createStore } from "redux";
 //1. state
 export class authState{
     public token: string = '';
-
+    public constructor(){
+        this.token = localStorage.getItem('token') || '';
+    }
 }
 //2. action types enum
 export enum AuthActionType{
@@ -14,16 +16,19 @@ export enum AuthActionType{
 //3. action interface
 export interface AuthAction{
     type:AuthActionType,
-    payload: any
+    payload: string
 }
 //4. reducer
 export function authReducer(currentState = new authState(), action: AuthAction): authState{
     const newState = {...currentState};
 
     switch(action.type){
+        //sign up and login had same code, so cuz theres no break it will execute login code.
         case AuthActionType.Signup:
-            break;
         case AuthActionType.Login:
+            newState.token = action.payload;
+            localStorage.setItem('token', newState.token);
+            console.log("our jwt is "+action.payload);
             break;
         case AuthActionType.Logout:
             break;
