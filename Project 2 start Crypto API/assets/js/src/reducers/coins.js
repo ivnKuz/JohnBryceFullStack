@@ -1,6 +1,4 @@
-import Coin from "../interfaces/coin.js";
-//creation of every Card for crypto coins
-export default function reduceCoins(coins: Coin[]): string {
+export default function reduceCoins(coins) {
     return coins.map(coin => `
         <div class="col-sm-6 col-md-3 cardDIv">
             <div class="card">

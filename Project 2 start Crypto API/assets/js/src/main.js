@@ -10,21 +10,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import reduceCoins from './reducers/coins.js';
 import Cache from './Cache.js';
 import reduceCoinsPop from './reducers/coinsPop.js';
-import setLink from './charts.js';
 const cache = Cache.getInstance();
-//every checked coin ID stored here:
 const checkedArr = [];
-//creating new modal instance
-const myModal = new bootstrap.Modal(document.getElementById('coinsModal'));
-//get all the coins
+const myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
 function getCoins() {
     return __awaiter(this, void 0, void 0, function* () {
-        const cacheResponse = yield cache.getData('https://api.coingecko.com/api/v3/coins/list');
+        // const response = await fetch('https://api.coingecko.com/api/v3/coins/list');
+        // const response = await fetch('coins.json');
+        // const coins: Coin[] = await response.json();
+        // const cacheResponse = await cache.getData('https://api.coingecko.com/api/v3/coins/list');
+        const cacheResponse = yield cache.getData('coins.json');
         const coins = (cacheResponse);
+        console.log(coins); // DELETE LOG
         return coins;
     });
 }
-//get a single coin by id(name, symbol)
 function getCoinData(coinId) {
     return __awaiter(this, void 0, void 0, function* () {
         const cacheResponse = yield cache.getData(`https://api.coingecko.com/api/v3/coins/${coinId}`);
@@ -41,6 +41,7 @@ function coinsContainerClicked(e) {
             if (element.id.startsWith('more-info-')) {
                 const coinId = element.id.substring('more-info-'.length);
                 const coinData = yield getCoinData(coinId);
+                console.log(coinData); // DELETE LOG
                 document.getElementById(`data-container-${coinId}`).innerHTML = `
                 <img src="${coinData.image.thumb}"/> <br>
                 usd: ${coinData.market_data.current_price.usd}$<br>
@@ -49,11 +50,15 @@ function coinsContainerClicked(e) {
             `;
             }
         }
+        const allCheckboxes = document.querySelectorAll('.form-check-input');
         //had to create another instance cuz input element
         if (e.target instanceof HTMLInputElement) {
             const element = e.target;
+            //adds checkbox ids to modal, and creates html for them in coinsPop reducer
+            checkCheckedCoins(allCheckboxes);
             //delete unchecked from arr by value
             if (element.id.startsWith('flexSwitchCheckChecked-')) {
+                console.log('here');
                 const coinId = element.id.substring('flexSwitchCheckChecked-'.length);
                 if (!element.checked && checkedArr[checkedArr.indexOf(coinId)] === coinId) {
                     let index = checkedArr.indexOf(coinId);
@@ -61,33 +66,32 @@ function coinsContainerClicked(e) {
                         checkedArr.splice(index, 1);
                     }
                 }
-                // show pop up when trying to select more than 5 and making sure you cant check next checkbox
+                console.log(checkedArr); // DELETE LOG
                 if (checkedArr.length > 4) {
+                    // show pop up when trying to select more than 5 and making sure you cant check next checkbox
                     myModal.show();
                     element.checked = false;
                 }
-                //just push ids(symbols) if checked the checkbox and arr length is less than 5
-                if (element.checked && checkedArr.length <= 4)
+                if (element.checked && checkedArr.length <= 4) {
                     checkedArr.push(coinId);
-                //checked coins go to pop up
-                checkCheckedCoins();
+                }
             }
         }
+        console.log(checkedArr); // DELETE LOG
     });
 }
-function checkCheckedCoins() {
+//______________BY ID PULL THE ELEMENTS FROM THE QUERY SELECTOR ALL_____________
+//make sure you cant select more than 5
+function checkCheckedCoins(path) {
     return __awaiter(this, void 0, void 0, function* () {
         const popUpList = [];
         const coinSymbols = [];
         // showing what was selected in a popup modal
+        // for (let element of path) {
         for (let coinId of checkedArr) {
             const coinData = yield getCoinData(coinId);
             popUpList.push(coinData);
             coinSymbols.push(coinData.symbol.toUpperCase());
-        }
-        //sending crypto symbols into the fetch link inside charts.js
-        if (coinSymbols.length >= 1) {
-            setLink(coinSymbols);
         }
         renderModal(popUpList);
         //adding onclick on every checkbox by id saved in array of ids. 
@@ -99,16 +103,19 @@ function checkCheckedCoins() {
                     checkedArr.splice(index, 1);
                     popUpList.splice(index, 1);
                 }
-                //if exists on current rendered list of cards - uncheck
-                if (document.querySelector(`#flexSwitchCheckChecked-${coinId}`))
-                    document.querySelector(`#flexSwitchCheckChecked-${coinId}`).checked = false;
+                document.querySelector(`#flexSwitchCheckChecked-${coinId}`).checked = false;
                 myModal.hide();
                 renderModal(popUpList);
             });
         });
+        //btn close modal
+        document.getElementById('closeModal--btn').addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
+            //for the future idk what to do here, maybe delete after
+        }));
+        console.log(popUpList);
+        // charts.getChosenCoinsData(coinSymbols)
     });
 }
-//creating new html elements inside the modal container.
 function renderModal(popUpList) {
     const html = reduceCoinsPop(popUpList);
     document.getElementById('modal-body').innerHTML = html;
@@ -116,38 +123,34 @@ function renderModal(popUpList) {
 (() => __awaiter(void 0, void 0, void 0, function* () {
     // init
     document.getElementById('coins-container').addEventListener('click', coinsContainerClicked);
+    console.log('TYPESCRIPT IS GARBAGE');
+    console.log('TYPESCRIPT IS SHITFUC');
     // get data
     const coins = yield getCoins();
-    // cut list to 100 coins to appear on home screen.
+    // prepare data
+    // cut list to 100 coins
     const shortList = coins.slice(0, 100);
+    console.log(shortList); // DELETE LOG
+    // reduce to create the HTML string of the cards
     // display
-    createCards(shortList);
-    // SEARCH INPUT, searching by every letter just typed. Both title and symbol of coin is searched for.
+    const html = reduceCoins(shortList);
+    document.getElementById('coins-container').innerHTML = html;
+    // SEARCH INPUT
     document.getElementById('searchField').addEventListener('input', (e) => {
-        //will search in all 11k coins and show only those you entered name or symbol in.
-        createCards(coins);
+        //finding all card divs by title which is card.name in reducer
+        const html = reduceCoins(coins);
+        document.getElementById('coins-container').innerHTML = html;
         const allCheckboxes = document.querySelectorAll('.cardDIv');
         const value = e.target.value.toLowerCase();
         for (let cardElem of allCheckboxes) {
             const title = cardElem.querySelector('.card-title').textContent;
             const symbol = cardElem.querySelector('.card-text').textContent;
-            // made a search by title and a symbol. Can remove one at any time if needed.
             const isVisible = title.toLowerCase().includes(value) || symbol.toLowerCase().includes(value);
             cardElem.classList.toggle('hide', !isVisible);
         }
-        //when you delete everything from the input or its empty, it will go back to the shorter 100 cards list
-        if (value === '')
-            createCards(shortList);
+        if (value === '') {
+            const html = reduceCoins(shortList);
+            document.getElementById('coins-container').innerHTML = html;
+        }
     });
 }))();
-//render cards
-function createCards(list) {
-    const html = reduceCoins(list);
-    document.getElementById('coins-container').innerHTML = html;
-    //when it re-rendering the cards if search is used it renders all 11k, when search is empty it shows only 100, so this code
-    //is preventing the checked cards from being unchecked and cause error cuz the card isnt rendered, so without if the .checked = true will cause error cuz no such element.
-    checkedArr.forEach(coinId => {
-        if (document.querySelector(`#flexSwitchCheckChecked-${coinId}`))
-            document.querySelector(`#flexSwitchCheckChecked-${coinId}`).checked = true;
-    });
-}

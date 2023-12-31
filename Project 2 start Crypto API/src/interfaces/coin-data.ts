@@ -8,5 +8,6 @@ export default interface CoinData {
             eur: number;
             ils: number;
         }
-    }
+    },
+    symbol: string
 }

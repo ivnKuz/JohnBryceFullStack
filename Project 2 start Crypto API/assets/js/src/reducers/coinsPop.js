@@ -1,6 +1,4 @@
-import Coin from "../interfaces/coin.js";
-// creating cards for crypto coins in the modal.
-export default function reduceCoinsPop(coins: Coin[]): string {
+export default function reduceCoinsPop(coins) {
     return coins.map(coin => `
         <div class="col-sm-8">
             <div class="card">

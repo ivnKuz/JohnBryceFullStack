@@ -1,3 +1,4 @@
+
 body{
     box-sizing: border-box;
     padding: 0;
@@ -11,8 +12,11 @@ body{
     overflow-x: hidden;
     perspective: 10px;
 }
-.modal-backdrop, .fade, .show{
-    z-index: -1;
+.card{
+    color: aliceblue;
+    background-color: #04c200;
+    font-family: 'Orbitron', sans-serif;
+    box-shadow: 0 4px 15px 5px #04c200;
 }
 .card>img {
     width: 32px;
@@ -39,7 +43,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    transform: translateY(-50%);
+    height: 50%;
     transform-style: preserve-3d;
     z-index: -1;
 }
@@ -58,7 +63,6 @@ body{
     left: 50%;
     top: 50%;
     z-index: 2;
-    transform: translateY(-50%);
     transform: translateX(-50%);
 }
 .neon{
@@ -78,7 +82,11 @@ body{
   .flicker-fast{
     animation: flicker 1s linear infinite;
   }
-  
+    .navlinkFont {
+
+    color: aliceblue;
+        font-family: 'Orbitron', sans-serif;;
+    }  
 
 .search-section {
     position: absolute;
@@ -86,16 +94,15 @@ body{
     right: 0;
     justify-content: right;
 }
+#searchField{
+width: 30vw;
+text-align: center;
+background-color: rgba(204, 242, 207, 0.9);
+border-radius: 10px;
+font-family: 'Orbitron', sans-serif;;
+}
 .nav, nav-tabs {
     position: relative;
-}
-.nav-item__search--btn{
-    border-radius: 10px;
-    background-color: aquamarine;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-.nav-item__search--btn:hover{
-    cursor: pointer;
 }
 /* hide cards for search */
 .hide{
@@ -106,6 +113,11 @@ body{
     display: grid;
     z-index: 3;
     grid-template-rows: auto;
+}
+.modal-content{
+    background:#012c03;
+    color: aliceblue;
+    font-family: 'Orbitron', sans-serif;
 }
 .spinner{
     position: absolute;
@@ -134,10 +146,50 @@ body{
         opacity: 0.4;
     }
 }
-@media only screen and (max-width: 900px){
+@media only screen and (max-width: 1000px){
+    .mainCheckbox{
+        position: relative;
+        display: block;
+    }
+    .form-check {
+        display: block;
+    }
+    .card-title{
+        display: block;
+    }
+    .card__top-box{
+        display:block;
+        flex-direction: row;
+    }
+}
+@media only screen and (max-width: 790px){
     /* so search wont overlay the links */
     .search-section {
         position: relative;
         display: block;
     }
+    #searchField{
+        width: 70vw;
+        }
+}
+@media only screen and (max-width: 755px){
+    
+    .card__top-box{
+        display:flex;
+        flex-direction: row;
+    }
+}
+@media only screen and (max-width: 460px){
+    #searchField{
+        width: 98vw;
+        }
+    .nav-tabs{
+        display: flex;
+        flex-direction: row;
+    }
+    .content__container{
+        width: 100%;
+        padding: 10px 5px;
+    }
+    
 }

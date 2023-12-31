@@ -5,7 +5,7 @@ export default class Cache {
         when: Date;
     }[] = [];
 
-    timeout: number = 1000 * 30;
+    timeout: number = 1000 * 120;
     static instance: Cache;
     public static getInstance(): Cache {
         if (!this.instance) this.instance = new Cache();
@@ -24,21 +24,19 @@ export default class Cache {
             const diff = now.getTime() - when.getTime(); // this is the difference in milliseconds
             // date.getTime() return a timestamp, which is the number of milliseconds since the Epoch
             if (diff < this.timeout) {
-                console.log('CACHE HIT');
                 return existingData.content;
             }
 
         }
+        // fails sometimes because api isn't stable.
         const response = await fetch(key);
         const json = await response.json();
         this.setData(key, json);
-        console.log('CACHE MISS');
         return this.data.find(e => e.key === key).content;
     }
 
     setData(key: string, content: object) {
         const existingDataIndex = this.data.findIndex(e => e.key === key);
-        console.log(existingDataIndex)
         if (existingDataIndex > 0) {
             this.data[existingDataIndex] = {
                 key,
