@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Layout from './components/layout/layout/Layout';
 import { BrowserRouter } from 'react-router-dom';
+import interceptors from './utils/interceptors';
+
+
+interceptors.create();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -10,6 +10,7 @@ import EditProduct from "../../products/editProduct/EditProduct";
 import Signup from "../../auth/signup/Signup";
 import Login from "../../auth/login/Login";
 import CategoriesList from "../../categories/list/CategoriesList";
+import Details from "../../categories/details/details";
 
 function Routing(): JSX.Element {
     return (
@@ -22,6 +23,7 @@ function Routing(): JSX.Element {
             <Route path="/products" element={<Products />} />
             <Route path="/about" element={<About />} />
             <Route path="/product/details/:productId" element={<ProductDetails />} />
+            <Route path="/categories/details/:categoryId" element={<Details />} />
             <Route path="/products/new" element={<AddProduct />}/>
             <Route path="/products/edit/:productId" element={<EditProduct />}/>
             <Route path="/signup" element={<Signup />}/>
