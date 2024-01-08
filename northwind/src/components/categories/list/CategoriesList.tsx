@@ -28,7 +28,6 @@ function CategoriesList(): JSX.Element {
                         <td>{category?.name}</td>
                         <td>{category?.description}</td>
                         <td><img src={category?.imgUrl} alt="" /></td>
-
                         </tr>
                     )}
                 </tbody>

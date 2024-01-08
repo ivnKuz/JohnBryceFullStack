@@ -4,6 +4,7 @@ import ProductsImageSource2 from '../../../assets/images/ProductReinvention_Lead
 import { useEffect, useState } from "react";
 import { time } from "console";
 import useTitle from "../../../utils/useTitle";
+import Clock from "../Clock/Clock";
 function Home(): JSX.Element {
     useTitle('Northwind Home')
     const randomNumber = Math.floor(Math.random() * 2) + 1;
@@ -70,7 +71,9 @@ function Home(): JSX.Element {
             <button onClick={showCurrentTime}>Show time</button>
             <hr />
             <span>current date is: {time}</span>
-            
+            <hr />
+            <p>Here is a class component</p>
+            <Clock format="12h"/>
         </div>
     );
 }
