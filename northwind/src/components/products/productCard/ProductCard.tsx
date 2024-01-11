@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Product from "../../../models/Product";
 import "./ProductCard.css";
+import getAbsoluteImageSrc from "../../../utils/getAbsoluteImageSrc";
 
 interface ProductCardProps {
     product: Product;
@@ -20,7 +21,7 @@ function ProductCard(props:ProductCardProps): JSX.Element {
             <div>
 
             <NavLink  to={`/product/details/${props.product.id}`}>
-            <img src={props.product.imageUrl} alt="" />
+            <img src={getAbsoluteImageSrc(props.product.imageUrl)} alt="" />
             </NavLink>
                 
             </div>

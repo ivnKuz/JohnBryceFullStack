@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Product from "../../../models/Product";
 import notify from "../../../services/Notify";
 import Spinner from "../../common/spinner/Spinner";
+import getAbsoluteImageSrc from "../../../utils/getAbsoluteImageSrc";
 function ProductDetails(): JSX.Element {
     const params = useParams();
     const productId = Number(params.productId);
@@ -42,7 +43,7 @@ function ProductDetails(): JSX.Element {
             <h3>Stock: {product?.stock}</h3>
             <h3>Price: {product?.price?.toFixed(2)}</h3>
 
-            <img src={product?.imageUrl} alt="" />
+            <img src={getAbsoluteImageSrc(product?.imageUrl) } alt="" />
             <br />
             <NavLink to='/products'>Back</NavLink>
             <span> | </span>
