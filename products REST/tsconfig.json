@@ -1,7 +1,0 @@
-{
-    "compilerOptions": {
-     "outDir": "assets/js",
-     "target": "ES6",
-     "noEmitOnError": true
-    }
-}
