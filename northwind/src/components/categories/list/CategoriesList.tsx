@@ -4,6 +4,7 @@ import categoriesService from "../../../services/Categories";
 import Category from "../../../models/Category";
 import notify from "../../../services/Notify";
 import { useNavigate } from "react-router-dom";
+import getAbsoluteImageSrc from "../../../utils/getAbsoluteImageSrc";
 
 function CategoriesList(): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -27,7 +28,7 @@ function CategoriesList(): JSX.Element {
                         <tr>
                         <td>{category?.name}</td>
                         <td>{category?.description}</td>
-                        <td><img src={category?.imgUrl} alt="" /></td>
+                        <td><img src={getAbsoluteImageSrc(category?.imgUrl)} alt="" /></td>
                         </tr>
                     )}
                 </tbody>

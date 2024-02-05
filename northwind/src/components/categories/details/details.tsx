@@ -4,6 +4,7 @@ import Category from "../../../models/Category";
 import categoriesService from "../../../services/Categories";
 import { useParams } from "react-router-dom";
 import notify from "../../../services/Notify";
+import getAbsoluteImageSrc from "../../../utils/getAbsoluteImageSrc";
 
 function Details(): JSX.Element {
     const params = useParams();
@@ -21,7 +22,7 @@ function Details(): JSX.Element {
         <div className="categoryDetails">
 			<div>{category?.name}</div>
             <div>{category?.description}</div>
-            <div><img src={category?.imgUrl} alt="" /></div>
+            <div><img src={getAbsoluteImageSrc(category?.imgUrl) } alt="" /></div>
         </div>
     );
 }

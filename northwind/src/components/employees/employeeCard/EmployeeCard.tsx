@@ -1,5 +1,6 @@
 
 import Employee from "../../../models/Employee";
+import getAbsoluteImageSrc from "../../../utils/getAbsoluteImageSrc";
 import "./EmployeeCard.css";
 interface EmployeeCardProps{
     employee: Employee;
@@ -13,7 +14,7 @@ function EmployeeCard(props: EmployeeCardProps): JSX.Element {
                             <td>{props.employee.country}</td>
                             <td>{props.employee.city}</td>
                             <td>{props.employee.birthDate}</td>
-                            <td><img src={props.employee.imageUrl} alt="" /></td>
+                            <td><img src={getAbsoluteImageSrc(props.employee.imageUrl)} alt="" /></td>
         </div>
     );
 }
