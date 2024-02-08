@@ -22,9 +22,22 @@ class User implements Model {
         return user;
     }
 
-    // public async login(credentials: CredentialsDTO): Promise<UserDTO>{
-      
-    // }
+    public async login(credentials: CredentialsDTO): Promise<UserDTO>{
+      const {username, password} = credentials;
+      const user = (await query(`
+      SELECT    userId AS id,
+                password ,
+                firstName,
+                lastName,
+                roleId
+        FROM    users
+        WHERE   username = ? 
+        AND     password = ?
+      `, [username, hashPassword(password, config.get<string>('app.secret'))]))[0];
+      return user;
+    }
+
+
     public async signUp(user: UserDTO): Promise<UserDTO>{
         const {firstName, lastName, username, password} = user;
         const result: OkPacketParams = await query(`
