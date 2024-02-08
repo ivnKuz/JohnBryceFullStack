@@ -7,10 +7,11 @@ import { notFound } from "./middlewares/not-found";
 import { errorHandler } from "./middlewares/error-handler";
 import { errorLogger } from "./middlewares/error-logger";
 import { pagerDuty } from "./middlewares/pager-duty";
-
+import authRouter from './routers/auth'
 const server = express();
 server.use(express.json());
 
+server.use('/api', authRouter)
 server.use('/api/products', productsRouter)
 
 // special middleware for not found error
