@@ -8,12 +8,18 @@ import { errorHandler } from "./middlewares/error-handler";
 import { errorLogger } from "./middlewares/error-logger";
 import { pagerDuty } from "./middlewares/pager-duty";
 import authRouter from './routers/auth'
+import categoryRouter from './routers/categories'
+import authentication from "./middlewares/authenitcation";
+import userLogger from "./middlewares/user-logger";
 const server = express();
+
+server.use(authentication);
+server.use(userLogger)
 server.use(express.json());
 
 server.use('/api', authRouter)
 server.use('/api/products', productsRouter)
-
+server.use('/api/categories', categoryRouter);
 // special middleware for not found error
 server.use(notFound)
 
