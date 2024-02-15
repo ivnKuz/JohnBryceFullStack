@@ -2,10 +2,15 @@
     "app": {
         "name": "northwind",
         "port": 8080,
+        "protocol": "http",
+        "host": "localhost",
         "secret": "balalaika",
         "jwt": {
             "expires": "3h",
             "secret": "LinkinPark"
+        }, 
+        "images": {
+            "path": "/Users/username/Desktop/webDevJB/northwind-images/"
         }
     },
     "mysql": {

@@ -13,6 +13,7 @@ import authentication from "./middlewares/authenitcation";
 import imagesRouter from "./routers/images"
 import userLogger from "./middlewares/user-logger";
 import expressFileUpload from 'express-fileupload'
+import path from "path";
 
 const server = express();
 
@@ -24,7 +25,7 @@ server.use(expressFileUpload());
 server.use('/api', authRouter)
 server.use('/api/products', productsRouter)
 server.use('/api/categories', categoryRouter);
-server.use('/images', express.static('src/assets/images'))
+server.use('/images', express.static(path.resolve(config.get<string>('app.images.path'))));
 // special middleware for not found error
 server.use(notFound)
 
