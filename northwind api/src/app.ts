@@ -34,6 +34,4 @@ server.use(errorLogger)
 server.use(pagerDuty)
 server.use(errorHandler)
 
-server.listen(config.get<number>('app.port'), () => {
-    console.log(`${config.get<string>('app.name')} is running on localhost:${config.get<number>('app.port')}`)
-})
+export default server;
