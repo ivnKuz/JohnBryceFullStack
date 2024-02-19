@@ -10,7 +10,7 @@
             "secret": "LinkinPark"
         }, 
         "images": {
-            "path": "/Users/username/Desktop/webDevJB/northwind-images/"
+            "path": "/Users/cybersandwich/Desktop/webDevJB/northwind-images/"
         }
     },
     "mysql": {
