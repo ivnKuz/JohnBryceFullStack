@@ -1,0 +1,4 @@
+.Employees > table, .Employees th, .Employees td{
+	margin: auto;
+    border-collapse: collapse;
+}
