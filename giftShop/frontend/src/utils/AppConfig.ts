@@ -1,9 +1,10 @@
 
 
 class AppConfig{
-    public loremIpsumUrl = 'http://localhost:8080/api/lorem';
-    // public apiBaseUrl = 'https://murmuring-ocean-69355-1c3f77a1ae50.herokuapp.com'
-    
+    public baseUrl = 'http://localhost:8080/api'
+    public audienceUrl = `${this.baseUrl}/audiences`;
+    public giftsUrl = `${this.baseUrl}/gifts/audience`;
+    public addGiftsUrl = `${this.baseUrl}/gifts`;
     public successNotificationDuration = 2000;
     public errorNotificationDuration = 3000;
 }

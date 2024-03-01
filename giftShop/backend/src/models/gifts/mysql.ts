@@ -52,6 +52,16 @@ class Gift implements Model {
 
             return gift;
         }
+        public async delete(id: number): Promise<boolean>{
+           
+
+            const result: OkPacketParams  = await query(`
+            DELETE FROM gifts 
+            WHERE id = ?
+            `, [id])
+
+            return Boolean(result.affectedRows);
+        }
        
 }
 
