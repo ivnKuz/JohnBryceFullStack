@@ -18,14 +18,9 @@ function Home(): JSX.Element {
 
     return (
         <div className="Home">
-            <p>welcome to Northwind Traders!</p>
-            <p>here is a string from state: {something}</p>
-
-            {/* and this is how you would render an image: */}
-            {/* <img src={Products2ImageSource}/> */}
 
         </div>
     );
-}
+    }
 
 export default Home;

@@ -42,7 +42,7 @@ class User implements Model {
     public async signUp(user: UserDTO): Promise<UserDTO>{
         const {firstName, lastName, email, password} = user;
         const result: OkPacketParams = await query(`
-        INSERT INTO users(firstName, lastName, username, password, roleId) 
+        INSERT INTO Users(firstName, lastName, username, password, roleId) 
         VALUES(?,?,?,?,?) 
     `, [firstName, lastName, email, hashPassword(password, config.get<string>('app.secret')), Roles.USER]);
     return this.getOne(result.insertId);

@@ -1,20 +1,20 @@
 {
     "app": {
-        "name": "lorem-ipsum",
+        "name": "vacation-tours",
         "port": 8080,
         "protocol": "http",
         "host": "localhost",
         "secret": "lorem-ipsum-secret",
         "jwt": {
             "expires": "3h",
-            "secret": "lorem-ipsum-secret"
+            "secret": "IhaveTheHighgroundAnakin"
         }
     },
     "mysql": {
         "host": "localhost",
         "user": "root",
         "password": "",
-        "database": "lorem-ipsum",
+        "database": "toursProject",
         "port": 3306,
         "connectionLimit": 10
     }
